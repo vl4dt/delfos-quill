@@ -40,6 +40,17 @@ function App() {
     }
   }, []);
 
+  // SEO: Update Page Title based on State
+  useEffect(() => {
+    if (result && brandName) {
+        document.title = `Analysis: ${brandName} | Delfos Quill Pro`;
+    } else if (result && !brandName) {
+        document.title = `Generated Ideas | Delfos Quill Pro`;
+    } else {
+        document.title = `Delfos Quill Pro - AI Brand Name Generator & Availability Check`;
+    }
+  }, [result, brandName]);
+
   const handleAcceptTerms = () => {
     localStorage.setItem(STORAGE_KEY_TERMS, 'true');
     setHasAcceptedTerms(true);
