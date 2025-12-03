@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline';
+  variant?: 'primary' | 'secondary' | 'outline' | 'premium';
   isLoading?: boolean;
 }
 
@@ -19,11 +19,13 @@ export const Button: React.FC<ButtonProps> = ({
   // Primary: Deep Purple to Violet Gradient with Gold shadow
   // Secondary: Slate/Dark with Cyan hover
   // Outline: Subtle border with glow on hover
+  // Premium: Gold/Amber gradient for monetization actions
   
   const variants = {
     primary: "bg-gradient-to-r from-purple-700 to-indigo-600 hover:from-purple-600 hover:to-indigo-500 text-white shadow-lg shadow-purple-900/40 border border-white/5",
     secondary: "bg-cyan-900/20 hover:bg-cyan-800/30 text-cyan-100 border border-cyan-700/30 shadow-lg shadow-cyan-900/10",
-    outline: "bg-transparent border border-slate-600 text-slate-300 hover:border-amber-500/50 hover:text-amber-100 hover:bg-amber-900/10 hover:shadow-[0_0_15px_-5px_rgba(245,158,11,0.3)]"
+    outline: "bg-transparent border border-slate-600 text-slate-300 hover:border-amber-500/50 hover:text-amber-100 hover:bg-amber-900/10 hover:shadow-[0_0_15px_-5px_rgba(245,158,11,0.3)]",
+    premium: "bg-gradient-to-r from-amber-600 to-orange-500 hover:from-amber-500 hover:to-orange-400 text-white shadow-lg shadow-amber-900/40 border border-white/10"
   };
 
   return (

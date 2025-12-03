@@ -74,6 +74,9 @@ export const checkBrandAvailability = async (
         # 🔍 Market Analysis
         ${marketAnalysisInstruction}
 
+        # 🎨 Visual Identity
+        (Propose a visual direction. YOU MUST FORMAT THE COLOR PALETTE EXACTLY AS: "Palette: #HEX1, #HEX2, #HEX3". Then describe the Logo Concept and Typography Style briefly.)
+
         # 🌐 Domain & Social
         (Discuss the likelihood of .com domain availability and common social handles based on your search findings.)
 
@@ -136,6 +139,9 @@ export const generateBrandNames = async (
 
         # 🧠 Naming Strategy
         (Briefly explain the angles or themes you used to generate these names based on the context.)
+
+        # 🎨 Visual Direction
+        (Suggest a general Color Palette (e.g., "Deep Blue & Gold") and Vibe (e.g., "Trustworthy, Modern") that suits this batch of names.)
 
         # 🌐 Domain Availability Checks
         (Provide general advice on domain extensions (.com, .io, .ai) suitable for these types of names.)

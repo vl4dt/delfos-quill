@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrandCheckResult, GroundingChunk } from '../types';
-import { ExternalLink, Search, Globe, ShieldCheck, AlertTriangle, Sparkles, Lightbulb, Download, Copy, Check, ShoppingCart } from 'lucide-react';
+import { ExternalLink, Search, Globe, ShieldCheck, AlertTriangle, Sparkles, Lightbulb, Download, Copy, Check, ShoppingCart, Palette, PenTool } from 'lucide-react';
+import { Button } from './ui/Button';
 
 interface ResultsViewProps {
   result: BrandCheckResult;
@@ -27,6 +28,12 @@ export const ResultsView: React.FC<ResultsViewProps> = ({ result, brandNameQuery
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+  };
+
+  // Helper to extract Hex Codes from text
+  const extractColors = (text: string): string[] => {
+    const hexRegex = /#(?:[0-9a-fA-F]{3}){1,2}\b/g;
+    return text.match(hexRegex) || [];
   };
 
   // Helper to safely render bold text
@@ -56,6 +63,7 @@ export const ResultsView: React.FC<ResultsViewProps> = ({ result, brandNameQuery
           let icon = <Search className="w-5 h-5" />;
           let headerClass = "text-slate-200 border-slate-700";
           let bgClass = "bg-slate-900/40";
+          let colors: string[] = [];
 
           // Theme Logic: Oracle & Precious Metals
           if (titleLine.includes("Verdict")) {
@@ -70,6 +78,11 @@ export const ResultsView: React.FC<ResultsViewProps> = ({ result, brandNameQuery
                headerClass = "text-cyan-300 border-cyan-500/20";
                bgClass = "bg-cyan-950/20";
                icon = <Globe className="w-5 h-5 text-cyan-400" />;
+          } else if (titleLine.includes("Visual Identity") || titleLine.includes("Visual Direction")) {
+               headerClass = "text-pink-300 border-pink-500/20";
+               bgClass = "bg-pink-950/10";
+               icon = <Palette className="w-5 h-5 text-pink-400" />;
+               colors = extractColors(body);
           } else if (titleLine.includes("Recommended Names")) {
                headerClass = "text-purple-300 border-purple-500/20";
                bgClass = "bg-purple-950/20";
@@ -93,7 +106,38 @@ export const ResultsView: React.FC<ResultsViewProps> = ({ result, brandNameQuery
                   <div className="p-6 text-slate-300 leading-relaxed whitespace-pre-wrap">
                       <FormattedText content={body.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')} />
                       
-                      {/* Monetization Hook */}
+                      {/* Visual Identity Palette Renderer */}
+                      {colors.length > 0 && (
+                        <div className="mt-6 p-4 bg-black/20 rounded-lg border border-white/5">
+                            <h4 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3">AI Suggested Palette</h4>
+                            <div className="flex flex-wrap gap-4">
+                                {colors.map((color, idx) => (
+                                    <div key={idx} className="flex flex-col gap-2 items-center group">
+                                        <div 
+                                            className="w-16 h-16 rounded-full shadow-lg border-2 border-slate-800 group-hover:scale-110 transition-transform duration-300" 
+                                            style={{ backgroundColor: color }}
+                                            title={color}
+                                        ></div>
+                                        <span className="text-[10px] font-mono text-slate-500 uppercase">{color}</span>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="mt-6 flex justify-end">
+                                <a 
+                                    href="https://www.canva.com/logos/templates/" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                >
+                                    <Button variant="premium" className="text-sm px-4 py-2">
+                                        <PenTool className="w-4 h-4" />
+                                        Design This Logo
+                                    </Button>
+                                </a>
+                            </div>
+                        </div>
+                      )}
+
+                      {/* Domain Monetization Hook */}
                       {titleLine.includes("Domain") && brandNameQuery && (
                         <div className="mt-6 pt-6 border-t border-white/5 flex flex-col sm:flex-row gap-4">
                           <a 
